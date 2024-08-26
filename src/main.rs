@@ -1,3 +1,5 @@
+use std::env::args;
+
 use chrono::Timelike;
 use datetime::{self, LocalDateTime, LocalTime};
 
@@ -61,4 +63,6 @@ impl EventCountdown {
 fn main() {
     let ctd = EventCountdown::new("Christmas", 25, 12, 2024);
     ctd.print();
+
+    println!("{:?}", args());
 }
