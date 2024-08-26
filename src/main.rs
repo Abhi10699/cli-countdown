@@ -1,7 +1,28 @@
+use clap::Parser;
 use std::env::args;
 
 use chrono::Timelike;
 use datetime::{self, LocalDateTime, LocalTime};
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// Name of the event
+    #[arg(short, long)]
+    event: String,
+
+    /// Date of the Event
+    #[arg(short, long)]
+    date: i8,
+
+    /// Month of the Event
+    #[arg(short, long)]
+    month: i8,
+
+    /// Year of the event
+    #[arg(short, long)]
+    year: i64,
+}
 
 struct EventCountdown {
     event_name: String,
@@ -61,8 +82,7 @@ impl EventCountdown {
 }
 
 fn main() {
-    let ctd = EventCountdown::new("Christmas", 25, 12, 2024);
+    let args = Args::parse();
+    let ctd = EventCountdown::new(&args.event, args.date, args.month, args.year);
     ctd.print();
-
-    println!("{:?}", args());
 }
